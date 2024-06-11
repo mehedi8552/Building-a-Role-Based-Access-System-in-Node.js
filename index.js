@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   res.send("Server running.............");
 });
 // User Router Middleware
-//app.use("/api", require("./routes"));
+app.use("/api", require("./src/routes/routes"));
 
 const startApp = async () => {
   try {

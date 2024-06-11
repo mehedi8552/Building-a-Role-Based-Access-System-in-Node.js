@@ -6,6 +6,8 @@ const {
   signupSchema,
 } = require("../Validate/Validate.js");
 
+const User = require("../../Models/User");
+
 const MSG = {
   usernameExists: "Username is already taken.",
   emailExists: "Email is already registered.",
@@ -34,13 +36,14 @@ const register = async (userRequest, role, res) => {
 
     // Get the hashed password
     const password = await bcrypt.hash(signUpRequest.password, 12);
+    
+  
     // create a new user
     const newUser = new User({
       ...signUpRequest,
       password,
       role,
     });
-
     await newUser.save();
     return res.status(201).json({
       message: MSG.signupSuccess,
@@ -58,3 +61,5 @@ const register = async (userRequest, role, res) => {
     });
   }
 };
+
+module.exports = register;

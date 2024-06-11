@@ -8,24 +8,24 @@ const ValidateUsername = async (username) => {
 };
 
 const ValidateEmail = async (email) => {
-  let email = User.findOne({ email });
-  return email ? false : true;
+  let user = await User.findOne({ email });
+  return user ? false : true;
 };
 
 const signupSchema = Joi.object({
   name: Joi.string().min(2).required(),
   username: Joi.string().min(4).required(),
   email: Joi.string().email().required(),
-  passport: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+  password: Joi.string()
+    .pattern(new RegExp("^[a-zA-Z0-9]"))
     .min(8)
     .required(),
 });
 
 const LoginSchema = Joi.object({
   username: Joi.string().min(4).required(),
-  passport: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+  password: Joi.string()
+    .pattern(new RegExp("^[a-zA-Z0-9]"))
     .min(8)
     .required(),
 });
